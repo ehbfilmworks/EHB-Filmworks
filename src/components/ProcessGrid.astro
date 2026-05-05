@@ -1,0 +1,27 @@
+---
+interface Props {
+  steps?: Array<[string, string]>;
+  background?: string;
+}
+
+const defaultSteps: Array<[string, string]> = [
+  ["Briefing", "Ein 30-Min-Call. Wir hören zu, fragen nach, schicken einen ersten Entwurf mit Festpreis und Timeline — kostenlos, unverbindlich."],
+  ["Pre-Production", "Storyboard, Shotlist, Drehplan, Locations. Sie wissen vorher, was Sie nachher bekommen — keine Überraschungen."],
+  ["Dreh", "Cine-Kamera, FPV-Drohne, Slider und Tonmann. Klein genug, um beweglich zu sein. Gross genug, um Cinema-Qualität zu liefern."],
+  ["Post", "Schnitt, Color Grade, Sound, Musik, Motion-Graphics. Zwei Korrekturschleifen inklusive. Lieferung in allen benötigten Formaten."],
+];
+
+const { steps = defaultSteps, background } = Astro.props;
+---
+
+<div class="process" style={background ? `background: ${background};` : undefined}>
+  {
+    steps.map(([title, desc], i) => (
+      <div class="process-step">
+        <div class="num">— {String(i + 1).padStart(2, "0")}</div>
+        <h4>{title}</h4>
+        <p>{desc}</p>
+      </div>
+    ))
+  }
+</div>

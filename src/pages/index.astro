@@ -1,0 +1,180 @@
+---
+import { Image, getImage } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ShowreelMedia from "../components/ShowreelMedia.tsx";
+import ShowreelTrigger from "../components/ShowreelTrigger.tsx";
+import Marquee from "../components/Marquee.astro";
+import StatsRow from "../components/StatsRow.astro";
+import CapabilityGrid from "../components/CapabilityGrid.astro";
+import ProcessGrid from "../components/ProcessGrid.astro";
+import FinalCta from "../components/FinalCta.astro";
+import cinematic from "../assets/cinematic.jpg";
+import hotelPalace from "../assets/HotelPalace.jpg";
+
+const heroPoster = await getImage({
+  src: cinematic,
+  width: 1920,
+  format: "jpg",
+  quality: 80,
+});
+---
+
+<BaseLayout
+  title="EHB Filmworks — Cinematic Image Films from Solothurn"
+  description="EHB Filmworks ist eine Schweizer Videoproduktion aus Solothurn. Cinematische Image-Filme, FPV-Drohnenaufnahmen und Reels — von der Idee bis zum finalen Cut."
+  homeNav
+>
+  <section class="hero">
+    <div class="hero-meta">REEL 2026 / SOLOTHURN — CH</div>
+    <ShowreelMedia client:idle posterSrc={heroPoster.src} videoSrc="/showreel.mp4" />
+    <div class="hero-inner">
+      <p class="hero-eyebrow">EHB Filmworks · est. 2024</p>
+      <h1 class="hero-h1">
+        Turn Ideas into <em>Action.</em><br />
+        Time is limited.
+      </h1>
+      <p class="hero-sub">
+        Eine Schweizer Videoproduktion für Marken mit Geschichte.
+        Cinematische Image-Filme, FPV-Drohnenaufnahmen und Reels —
+        von der Idee bis zum finalen Cut.
+      </p>
+      <div class="hero-cta-row">
+        <a class="btn" href="/kontakt">
+          Projekt anfragen <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <ShowreelTrigger client:idle videoSrc="/showreel.mp4" />
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-bottom-inner">
+        <span>Scroll</span>
+        <div class="ticker">
+          <span>Image-Film</span>
+          <span>Cinematic</span>
+          <span>FPV Drone</span>
+          <span>Reels</span>
+          <span>Live Event</span>
+        </div>
+        <span>01 / 04</span>
+      </div>
+    </div>
+  </section>
+
+  <Marquee />
+  <StatsRow />
+
+  <section class="section">
+    <div class="container">
+      <div
+        style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:64px;align-items:start;"
+        class="idee-grid"
+      >
+        <div>
+          <p class="eyebrow">Idee</p>
+          <h2 class="section-title">
+            Wir machen Bewegtbild,<br />das im Kopf bleibt.
+          </h2>
+        </div>
+        <div>
+          <p class="section-lead" style="font-size:1.2rem;margin-bottom:20px;">
+            Die Kernidee von EHB Filmworks ist es, durch kreative und professionelle
+            Videoproduktion Unternehmen dabei zu helfen, sich optimal zu präsentieren.
+          </p>
+          <p class="section-lead" style="color:var(--ehb-grey-400);">
+            Durch den Einsatz von FPV-Drohnen und Cine-Kameras fangen wir Perspektiven
+            ein, die mit klassischen Setups nicht möglich wären — vom Pitch über den
+            Dreh bis zum letzten Frame im Schnitt. Sie bekommen einen Ansprechpartner,
+            kein Callcenter.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tight" style="padding-top:0;">
+    <div class="container">
+      <div
+        style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:16px;"
+      >
+        <div>
+          <p class="eyebrow">Kompetenzen</p>
+          <h2 class="section-title">Was wir am besten können.</h2>
+        </div>
+        <a href="/preise" class="btn btn-outline">
+          Alle Leistungen <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+      <CapabilityGrid />
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <p class="eyebrow">Featured · vom 15.12.2024</p>
+      <h2 class="section-title" style="color:#fff;margin-bottom:56px;">Neuste Arbeit</h2>
+      <div class="feat">
+        <a class="feat-photo" href="/projekte/hotel-palace-gstaad" aria-label="Hotel Palace Gstaad — Projekt ansehen">
+          <Image src={hotelPalace} alt="Hotel Palace Gstaad" widths={[720, 1080, 1440]} sizes="(min-width: 900px) 55vw, 100vw" />
+          <span class="stamp">Image-Film</span>
+          <span class="duration"><i class="fa-solid fa-clock" style="margin-right:6px;" aria-hidden="true"></i>2:14</span>
+          <span class="play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+        </a>
+        <div>
+          <div class="feat-meta" style="color:rgba(255,255,255,.55);">
+            <span>Cinematic</span>
+            <span class="dot"></span>
+            <span>Hospitality</span>
+            <span class="dot"></span>
+            <span>Gstaad, BE</span>
+          </div>
+          <h3 style="color:#fff;">
+            Hotel Palace <em>Gstaad</em> — ein Wintermärchen.
+          </h3>
+          <p style="color:rgba(255,255,255,.7);">
+            Das Gstaad Palace verzaubert seit über einem Jahrhundert Gäste aus nah
+            und fern. Wir haben drei Tage gedreht — vom ersten Frühlicht über dem
+            Park bis zur abendlichen Kaminstimmung in der Lobby — und daraus eine
+            stille, warme Hommage an Schweizer Hospitalitätskultur geschnitten.
+          </p>
+          <div class="feat-tags">
+            <span>4K</span>
+            <span>FPV</span>
+            <span>Slider</span>
+            <span>Sounddesign</span>
+            <span>Color Grade</span>
+          </div>
+          <a class="btn" href="/projekte/hotel-palace-gstaad">
+            Projekt ansehen <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Prozess</p>
+      <h2 class="section-title">Vom Briefing zum letzten Frame.</h2>
+      <p class="section-lead" style="margin-bottom:48px;">
+        Vier klare Phasen, ein fester Ansprechpartner, klares Angebot ab dem
+        Briefing-Call. Kein Agentur-Overhead, keine versteckten Kosten.
+      </p>
+      <ProcessGrid />
+    </div>
+  </section>
+
+  <FinalCta
+    title="Lassen Sie uns Ihre Geschichte <em>erzählen.</em>"
+    body="Schreiben Sie uns eine kurze Nachricht — wir melden uns innerhalb von 24 Stunden mit einem ersten Vorschlag."
+    secondary={{ href: "/preise", label: "Preise ansehen" }}
+  />
+</BaseLayout>
+
+<style>
+  @media (max-width: 760px) {
+    .idee-grid {
+      grid-template-columns: 1fr !important;
+      gap: 24px !important;
+    }
+  }
+</style>

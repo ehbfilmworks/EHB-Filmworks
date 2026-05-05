@@ -1,0 +1,24 @@
+---
+const stats: Array<[string, string, string]> = [
+  ["3", "", "Projekte"],
+  ["4", "K", "Cine"],
+  ["2024", "", "gegründet"],
+  ["100", "%", "In-house Edit"],
+];
+---
+
+<div class="container">
+  <div class="stats">
+    {
+      stats.map(([num, em, label]) => (
+        <div class="stat">
+          <div class="stat-num">
+            {num}
+            {em && <em>{em}</em>}
+          </div>
+          <div class="stat-lab">{label}</div>
+        </div>
+      ))
+    }
+  </div>
+</div>

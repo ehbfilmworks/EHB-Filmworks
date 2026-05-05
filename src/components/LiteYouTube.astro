@@ -1,0 +1,21 @@
+---
+interface Props {
+  id: string;
+  title: string;
+}
+
+const { id, title } = Astro.props;
+const poster = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+---
+
+<div class="lite-youtube-shell">
+  <lite-youtube videoid={id} style={`background-image: url('${poster}');`} title={title}>
+    <button type="button" class="lty-playbtn" aria-label={`Video abspielen: ${title}`}>
+      <span class="lyt-visually-hidden">Abspielen</span>
+    </button>
+  </lite-youtube>
+</div>
+
+<script>
+  import "lite-youtube-embed";
+</script>

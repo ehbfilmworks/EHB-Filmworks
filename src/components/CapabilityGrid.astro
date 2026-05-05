@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import reelImg from "../assets/reel.jpg";
+import cineImg from "../assets/cinematic.jpg";
+import droneImg from "../assets/droneshots.jpg";
+import storyImg from "../assets/motivated.jpg";
+
+const cards = [
+  { n: "01", img: reelImg, tag: "Social", title: "Reels" },
+  { n: "02", img: cineImg, tag: "Brand", title: "Cinematic" },
+  { n: "03", img: droneImg, tag: "Aerial", title: "Drone" },
+  { n: "04", img: storyImg, tag: "Studio", title: "Story" },
+];
+---
+
+<div class="cap-grid">
+  {
+    cards.map((c) => (
+      <a class="cap-card" href="/projekte">
+        <div class="bg">
+          <Image src={c.img} alt="" widths={[480, 720, 960]} sizes="(min-width: 960px) 25vw, (min-width: 540px) 50vw, 100vw" />
+        </div>
+        <div class="content">
+          <div>
+            <span class="num">— {c.n}</span>
+          </div>
+          <div>
+            <p class="eyebrow-on">{c.tag}</p>
+            <h3>{c.title}</h3>
+          </div>
+        </div>
+        <div class="arrow"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></div>
+      </a>
+    ))
+  }
+</div>

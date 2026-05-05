@@ -1,0 +1,18 @@
+---
+import { getEntry, render } from "astro:content";
+import LegalLayout from "../layouts/LegalLayout.astro";
+
+const entry = await getEntry("legal", "datenschutz");
+if (!entry) throw new Error("Datenschutz entry not found");
+const { Content } = await render(entry);
+---
+
+<LegalLayout
+  title={entry.data.title}
+  subtitle={entry.data.subtitle}
+  stand={entry.data.stand}
+  description="Datenschutzerklärung von EHB Filmworks — gemäss revDSG und DSGVO."
+  active="datenschutz"
+>
+  <Content />
+</LegalLayout>

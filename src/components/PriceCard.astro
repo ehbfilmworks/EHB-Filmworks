@@ -1,0 +1,50 @@
+---
+import type { Tier } from "../data/pricing";
+
+interface Props {
+  tier: Tier;
+}
+
+const { tier } = Astro.props;
+const onRequest = tier.price === "Auf Anfrage";
+---
+
+<div class:list={["price-card", tier.feature && "is-feature"]}>
+  <p class="tier-name">— {tier.name}</p>
+  <h3 class="tier-title">{tier.title}</h3>
+  <p class="tier-tag">{tier.tag}</p>
+  {
+    onRequest ? (
+      <div class="price on-request">
+        <span class="amount">Auf Anfrage</span>
+      </div>
+    ) : (
+      <div class="price">
+        <span class="currency">CHF</span>
+        <span class="amount">{tier.price}</span>
+      </div>
+    )
+  }
+  <p class="price-suffix">{tier.suffix}</p>
+  <ul class="feat-list">
+    {
+      tier.features.map((f) => (
+        <li>
+          <i class="fa-solid fa-check" aria-hidden="true" /> {f}
+        </li>
+      ))
+    }
+    {
+      tier.muted?.map((f) => (
+        <li class="muted">
+          <i class="fa-solid fa-xmark" aria-hidden="true" /> {f}
+        </li>
+      ))
+    }
+  </ul>
+  <div class="price-cta">
+    <a class:list={["btn", !tier.feature && "btn-dark"]} href="/kontakt">
+      {tier.ctaLabel} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    </a>
+  </div>
+</div>

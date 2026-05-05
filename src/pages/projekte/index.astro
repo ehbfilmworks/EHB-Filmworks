@@ -1,0 +1,71 @@
+---
+import { getCollection } from "astro:content";
+import { getImage } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectsGallery, { type GalleryProject } from "../../components/ProjectsGallery.tsx";
+import FinalCta from "../../components/FinalCta.astro";
+
+const entries = await getCollection("projects");
+entries.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const projects: GalleryProject[] = await Promise.all(
+  entries.map(async (entry) => {
+    const opt = await getImage({
+      src: entry.data.hero,
+      widths: [560, 760, 1080],
+      sizes: "(min-width: 760px) 50vw, 100vw",
+      format: "webp",
+      quality: 80,
+    });
+    return {
+      slug: entry.id,
+      title: entry.data.title,
+      category: entry.data.category,
+      categoryLabel: entry.data.categoryLabel,
+      runtime: entry.data.runtime,
+      thumb: { src: opt.src, width: opt.attributes.width ?? 1080, height: opt.attributes.height ?? 720 },
+      excerpt: entry.data.excerpt,
+      date: entry.data.date.toLocaleDateString("de-CH", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }),
+      featured: entry.data.featured,
+      large: entry.data.large,
+    };
+  })
+);
+---
+
+<BaseLayout
+  title="Projekte"
+  description="Eine Auswahl unserer Arbeiten — Image-Filme, Cinematic-Pieces, FPV-Drohnenshots und Reels für Schweizer Marken."
+>
+  <section class="page-head">
+    <div class="container">
+      <div class="crumbs">
+        <a href="/">EHB Filmworks</a>
+        <span class="sep">/</span>
+        <span>Projekte</span>
+      </div>
+      <h1>Geschichten in <em>Bewegung.</em></h1>
+      <p class="lead">
+        Eine Auswahl unserer Arbeiten — Image-Filme, Cinematic-Pieces,
+        FPV-Drohnenshots und Reels für Schweizer Marken.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ProjectsGallery client:idle projects={projects} />
+    </div>
+  </section>
+
+  <FinalCta
+    eyebrow="Nächstes Projekt"
+    title="Wird das hier <em>Ihres?</em>"
+    body="Erzählen Sie uns von Ihrer Idee — wir antworten innerhalb von 24 Stunden."
+    primary={{ href: "/kontakt", label: "Briefing starten" }}
+  />
+</BaseLayout>

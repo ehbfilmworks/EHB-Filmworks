@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.tsx";
+import { team } from "../data/team";
+import { siteConfig } from "../data/site";
+
+const tallyFormId = import.meta.env.PUBLIC_TALLY_FORM_ID;
+---
+
+<BaseLayout
+  title="Kontakt"
+  description="Schreiben Sie uns kurz, was Sie vorhaben — wir antworten innerhalb von 24 Stunden mit einem ersten Vorschlag."
+>
+  <section class="page-head">
+    <div class="container">
+      <div class="crumbs">
+        <a href="/">EHB Filmworks</a>
+        <span class="sep">/</span>
+        <span>Kontakt</span>
+      </div>
+      <h1>Erzählen Sie uns Ihre <em>Idee.</em></h1>
+      <p class="lead">
+        Schreiben Sie uns kurz, was Sie vorhaben — wir antworten innerhalb
+        von 24 Stunden mit einem ersten Vorschlag und einem Termin für ein
+        30-minütiges Briefing.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <ContactForm client:idle tallyFormId={tallyFormId} />
+
+        <aside class="contact-side">
+          <p class="eyebrow">Studio</p>
+          <h3>Direkt aus dem<br />Mittelland — bereit für <em>Ihren Dreh.</em></h3>
+
+          <div class="info-block">
+            <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+            <div>
+              <p class="lab">Email</p>
+              <div class="val"><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></div>
+            </div>
+          </div>
+          <div class="info-block">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <div>
+              <p class="lab">Telefon</p>
+              <div class="val"><a href={siteConfig.phoneHref}>{siteConfig.phone}</a></div>
+            </div>
+          </div>
+          <div class="info-block">
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            <div>
+              <p class="lab">Folgen Sie uns</p>
+              <div class="val">
+                <a href={siteConfig.socials.instagram} target="_blank" rel="noopener">@ehb_filmworks</a><br />
+                <a href={siteConfig.socials.youtube} target="_blank" rel="noopener">youtube.com/@ehbfilmworks</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="team-strip">
+            {
+              team.map((m) => (
+                <div class="member">
+                  <Image src={m.portrait} alt={m.name} width={64} height={64} />
+                  <p class="name">{m.name}</p>
+                  <p class="role">{m.role}</p>
+                </div>
+              ))
+            }
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

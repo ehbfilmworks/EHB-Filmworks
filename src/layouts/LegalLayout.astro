@@ -1,0 +1,67 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { siteConfig } from "../data/site";
+
+interface Props {
+  title: string;
+  subtitle: string;
+  stand: string;
+  description: string;
+  active: "impressum" | "datenschutz" | "agb";
+}
+
+const { title, subtitle, stand, description, active } = Astro.props;
+
+const pages: Array<{ href: string; label: string; key: Props["active"] }> = [
+  { href: "/impressum", label: "Impressum", key: "impressum" },
+  { href: "/datenschutz", label: "Datenschutz", key: "datenschutz" },
+  { href: "/agb", label: "AGB", key: "agb" },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="page-head">
+    <div class="container">
+      <div class="crumbs">
+        <a href="/">EHB Filmworks</a>
+        <span class="sep">/</span>
+        <span>Rechtliches</span>
+        <span class="sep">/</span>
+        <span>{title}</span>
+      </div>
+      <h1>{title}</h1>
+      <p class="lead">{subtitle}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="legal-grid">
+        <aside class="legal-side">
+          <p class="eyebrow">Rechtliches</p>
+          <ul class="legal-nav">
+            {
+              pages.map((p) => (
+                <li>
+                  <a href={p.href} class:list={[p.key === active && "is-active"]}>
+                    {p.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="legal-meta">
+            <p class="lab">Stand</p>
+            <p>{stand}</p>
+            <p class="lab" style="margin-top:18px;">Kontakt</p>
+            <p><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
+          </div>
+        </aside>
+
+        <article class="legal-body">
+          <slot />
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

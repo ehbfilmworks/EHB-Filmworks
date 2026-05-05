@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="404 — Seite nicht gefunden"
+  description="Diese Seite gibt es nicht — oder noch nicht."
+  noindex
+>
+  <section class="page-head notfound">
+    <div class="container">
+      <h1><em>404</em></h1>
+      <p class="lead">Diese Seite gibt's nicht — oder noch nicht.</p>
+      <div class="actions">
+        <a class="btn" href="/">
+          Zurück zur Startseite <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn-ghost" href="/projekte">Projekte ansehen</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

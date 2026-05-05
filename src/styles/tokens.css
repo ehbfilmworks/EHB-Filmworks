@@ -1,0 +1,269 @@
+/* ============================================================
+   EHB Filmworks — design tokens
+   Reverse-engineered from src/assets/*.scss in the IDPA repo.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300..900;1,300..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+/* FontAwesome must be loaded via <link> in HTML, not @import — cross-origin
+   blocks the inner ::before content rules in some environments. */
+
+:root {
+  /* ---- Color: foundation ----------------------------------- */
+  --ehb-black:        #000000;
+  --ehb-white:        #ffffff;
+
+  /* ---- Color: accent --------------------------------------- */
+  --ehb-orange:       #ff5e14;   /* the only true brand accent */
+
+  /* ---- Color: section-local accents ------------------------ */
+  --ehb-cream:        #f7f5ec;   /* team section background */
+  --ehb-blue:         #1369ce;   /* team-card hover circle  */
+  --ehb-brown:        #ad7d52;   /* project card meta + author */
+  --ehb-green:        #5ad67d;   /* blog "read more" + accent bar */
+
+  /* ---- Color: greys (footer + body) ------------------------ */
+  --ehb-grey-900:     #202020;   /* copyright bar bg          */
+  --ehb-grey-800:     #2e2e2e;   /* subscribe input bg        */
+  --ehb-grey-700:     #373636;   /* footer top divider        */
+  --ehb-grey-600:     #4e5052;   /* team role text            */
+  --ehb-grey-500:     #757575;   /* footer single-cta span    */
+  --ehb-grey-400:     #878787;   /* footer link / copyright   */
+  --ehb-grey-350:     #868686;   /* card category eyebrow     */
+  --ehb-grey-300:     #7e7e7e;   /* footer body text          */
+  --ehb-grey-200:     #a2a2a2;   /* blog grey-dark            */
+  --ehb-grey-100:     #e2e2e2;   /* blog grey                 */
+
+  /* ---- Color: alpha overlays ------------------------------- */
+  --ehb-nav-fill:     rgba(255, 255, 255, 0.8);
+  --ehb-text-light:   rgba(255, 255, 255, 0.6);
+  --ehb-text-lighter: rgba(255, 255, 255, 0.9);
+  --ehb-detail-veil:  rgba(0, 0, 0, 0.6);
+
+  /* ---- Color: semantic ------------------------------------- */
+  --fg-1:        var(--ehb-black);
+  --fg-2:        var(--ehb-grey-600);
+  --fg-3:        var(--ehb-grey-400);
+  --fg-on-dark:  var(--ehb-white);
+  --fg-eyebrow:  var(--ehb-grey-350);
+  --bg-page:     var(--ehb-white);
+  --bg-section:  var(--ehb-cream);
+  --bg-dark:     var(--ehb-black);
+  --bg-footer:   var(--ehb-black);
+  --bg-copyright:var(--ehb-grey-900);
+  --bg-input:    var(--ehb-grey-800);
+  --accent:      var(--ehb-orange);
+  --link-hover:  var(--ehb-orange);
+
+  /* ---- Type: families -------------------------------------- */
+  --font-sans:    "Raleway", system-ui, sans-serif;
+  --font-display: "Poppins", "Raleway", system-ui, sans-serif;
+  --font-slab:    "Roboto Slab", "Times New Roman", serif;
+  --font-icon:    "Font Awesome 6 Free", "FontAwesome";
+
+  /* ---- Type: weights --------------------------------------- */
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-black:    900;
+
+  /* ---- Type: sizes ----------------------------------------- */
+  --text-base:    20px;
+  --text-eyebrow: 0.9rem;
+  --text-meta:    12px;
+  --text-meta-md: 13px;
+  --text-meta-lg: 14px;
+  --text-link:    15px;
+  --text-h4:      20px;
+  --text-h2-blog: 1rem;
+  --text-h1-card: 1.9rem;
+  --text-h1-blog: 1.7rem;
+  --text-nav:     30px;
+  --text-hero-h1: clamp(2.5rem, 6vw, 5.5rem);
+  --text-hero-h2: clamp(1rem, 2vw, 1.5rem);
+
+  /* ---- Spacing --------------------------------------------- */
+  --spacing-xs:   4px;
+  --spacing-s:    8px;
+  --spacing-m:   16px;
+  --spacing-l:   24px;
+  --spacing-xl:  32px;
+  --spacing-xxl: 64px;
+
+  /* ---- Layout ---------------------------------------------- */
+  --width-container: 1200px;
+  --width-project:    820px;
+  --width-blog-card:  700px;
+
+  /* ---- Radius ---------------------------------------------- */
+  --radius-card:     24px;
+  --radius-project:  12px;
+  --radius-blog:      5px;
+  --radius-input:     0px;
+  --radius-pill:    999px;
+
+  /* ---- Shadow ---------------------------------------------- */
+  --shadow-blog:        0 3px 7px -1px rgba(0,0,0,0.1);
+  --shadow-project:     0 13px 10px -7px rgba(0,0,0,0.1);
+  --shadow-project-hover: 0 30px 18px -8px rgba(0,0,0,0.1);
+  --shadow-card-text:   2px 2px 20px rgba(0,0,0,0.2);
+
+  /* ---- Motion ---------------------------------------------- */
+  --ease-bounce:   cubic-bezier(0.175, 0.885, 0, 1);
+  --ease-linear:   linear;
+  --ease-default:  ease;
+  --dur-fast:      200ms;
+  --dur-base:      300ms;
+  --dur-slow:      400ms;
+  --dur-slower:    500ms;
+
+  /* ---- Card photo filters (signature look) ----------------- */
+  --filter-card-photo:        brightness(0.75) saturate(1.2) contrast(0.85);
+  --filter-card-photo-blur:   brightness(0.5)  saturate(0)   contrast(1.2)  blur(20px);
+
+  /* ---- Z-index --------------------------------------------- */
+  --z-nav: 10;
+}
+
+/* ============================================================
+   Semantic element rules — drop-in defaults
+   ============================================================ */
+
+html, body {
+  background: var(--bg-page);
+  color: var(--fg-1);
+  font: var(--text-base) var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  margin: 0 0 var(--spacing-m);
+}
+
+h2 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  line-height: 1.2;
+  margin: 0 0 var(--spacing-m);
+}
+
+h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin: 0 0 var(--spacing-s);
+}
+
+p {
+  margin: 0 0 var(--spacing-m);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--dur-base) var(--ease-default);
+}
+a:hover { color: var(--link-hover); }
+
+/* ---- Eyebrow used over hero photos / cards ---------------- */
+.ehb-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--fg-eyebrow);
+  margin: 0 0 var(--spacing-s);
+}
+
+/* ---- Project-card title (slab) ---------------------------- */
+.ehb-title-slab {
+  font-family: var(--font-slab);
+  font-weight: var(--weight-bold);
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+/* ---- Blog-card heading (Poppins) -------------------------- */
+.ehb-title-blog {
+  font-family: var(--font-display);
+  font-size: var(--text-h1-blog);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  margin: 0;
+}
+.ehb-subtitle-blog {
+  font-family: var(--font-display);
+  font-size: var(--text-h2-blog);
+  font-weight: var(--weight-light);
+  text-transform: uppercase;
+  color: var(--ehb-grey-200);
+  margin-top: 5px;
+}
+
+/* ---- Card heading over photo (signature) ------------------ */
+.ehb-card-heading {
+  color: var(--ehb-text-lighter);
+  font-family: var(--font-sans);
+  font-size: var(--text-h1-card);
+  font-weight: var(--weight-bold);
+  text-shadow: var(--shadow-card-text);
+  line-height: 1.4;
+  word-spacing: 100vw;
+  margin: 0;
+}
+
+/* ---- Primary button (orange) ------------------------------ */
+.ehb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-s);
+  background: var(--accent);
+  color: var(--ehb-white);
+  border: 1px solid var(--accent);
+  padding: 13px 22px;
+  font: var(--weight-semibold) 1rem var(--font-sans);
+  cursor: pointer;
+  transition: filter var(--dur-base) var(--ease-default),
+              transform var(--dur-base) var(--ease-default);
+}
+.ehb-btn:hover { filter: brightness(1.08); transform: translateY(-1px); color: #fff; }
+.ehb-btn--ghost {
+  background: transparent;
+  color: var(--ehb-black);
+  border-color: var(--ehb-black);
+}
+.ehb-btn--dark {
+  background: var(--ehb-black);
+  border-color: var(--ehb-black);
+  color: var(--ehb-white);
+}
+
+/* ---- Footer underline accent ------------------------------ */
+.ehb-heading-underline {
+  position: relative;
+  color: var(--ehb-white);
+  font: var(--weight-semibold) 20px var(--font-sans);
+  margin-bottom: 40px;
+}
+.ehb-heading-underline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -15px;
+  height: 2px;
+  width: 50px;
+  background: var(--accent);
+}

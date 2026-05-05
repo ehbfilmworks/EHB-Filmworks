@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PriceCard from "../components/PriceCard.astro";
+import ProcessGrid from "../components/ProcessGrid.astro";
+import FinalCta from "../components/FinalCta.astro";
+import { tiers, faq } from "../data/pricing";
+
+const processSteps: Array<[string, string]> = [
+  ["Briefing", "30-Min-Call. Angebot innerhalb von 48 h."],
+  ["Pre-Production", "Storyboard, Shotlist, Locationscouting, Drehplan."],
+  ["Dreh", "1–3 Drehtage. Cine-Kamera, FPV, Slider, Tonmann."],
+  ["Post", "Schnitt, Color, Sound, Lieferung in allen Formaten."],
+];
+---
+
+<BaseLayout
+  title="Preise"
+  description="Drei Paketgrössen — Reel, Image-Film und Cinematic Story. Alle Preise auf Anfrage, ein fester Ansprechpartner, Schweizer Qualität."
+>
+  <section class="page-head">
+    <div class="container">
+      <div class="crumbs">
+        <a href="/">EHB Filmworks</a>
+        <span class="sep">/</span>
+        <span>Preise</span>
+      </div>
+      <h1>Klare Pakete.<br />Keine <em>Überraschungen.</em></h1>
+      <p class="lead">
+        Drei Paketgrössen, ein fester Ansprechpartner. Wählen Sie ein Paket
+        oder schreiben Sie uns für ein Custom-Angebot.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-bottom:32px;">
+    <div class="container">
+      <div class="price-grid">
+        {tiers.map((tier) => <PriceCard tier={tier} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-cream">
+    <div class="container">
+      <p class="eyebrow">So arbeiten wir</p>
+      <h2 class="section-title">Vier Phasen, ein Ansprechpartner.</h2>
+      <div style="margin-top:48px;">
+        <ProcessGrid steps={processSteps} background="#fff" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:920px;">
+      <p class="eyebrow">Fragen &amp; Antworten</p>
+      <h2 class="section-title" style="margin-bottom:40px;">Was unsere Kunden zuerst fragen.</h2>
+      <div class="faq">
+        {
+          faq.map(([q, a]) => (
+            <details>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <FinalCta
+    eyebrow="Bereit?"
+    title="Holen Sie ein <em>Angebot.</em>"
+    body="30 Minuten Briefing — innerhalb von 48 Stunden ein verbindliches Angebot."
+    primary={{ href: "/kontakt", label: "Briefing buchen" }}
+  />
+</BaseLayout>

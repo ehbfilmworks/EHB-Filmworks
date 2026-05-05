@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/Logo_EHB_Filmworks_SW.png";
+
+interface Props {
+  homeNav?: boolean;
+}
+
+const { homeNav = false } = Astro.props;
+const here = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const links = [
+  { href: "/projekte", label: "Projekte" },
+  { href: "/preise", label: "Preise" },
+  { href: "/kontakt", label: "Kontakt" },
+];
+
+const isActive = (href: string) => here === href || here.startsWith(href + "/");
+---
+
+<nav class:list={["nav", homeNav && "is-dark"]} data-home={homeNav ? "true" : undefined}>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/" aria-label="EHB Filmworks Startseite">
+      <Image src={logo} alt="EHB Filmworks" width={140} height={48} loading="eager" />
+    </a>
+    <div class="nav-links">
+      {
+        links.map((link) => (
+          <a href={link.href} class:list={[isActive(link.href) && "is-active"]}>
+            {link.label}
+          </a>
+        ))
+      }
+      <a class="nav-cta" href="/kontakt">Projekt anfragen</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const nav = document.querySelector(".nav");
+  if (nav && nav.getAttribute("data-home") === "true") {
+    const onScroll = () => {
+      if (window.scrollY > 80) nav.classList.remove("is-dark");
+      else nav.classList.add("is-dark");
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+</script>

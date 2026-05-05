@@ -1,0 +1,53 @@
+---
+import { siteConfig } from "../data/site";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const { title, description, image, canonical, noindex } = Astro.props;
+
+const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
+const fullTitle = isHome ? title : `${title} — EHB Filmworks`;
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteConfig.url).toString();
+const ogImage = new URL(image ?? "/og-default.jpg", siteConfig.url).toString();
+
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteConfig.entity,
+  url: siteConfig.url,
+  email: siteConfig.email,
+  telephone: siteConfig.phone,
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "CH",
+    addressLocality: "Solothurn",
+  },
+  sameAs: Object.values(siteConfig.socials),
+};
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{noindex && <meta name="robots" content="noindex" />}
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content={siteConfig.entity} />
+<meta property="og:locale" content="de_CH" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />

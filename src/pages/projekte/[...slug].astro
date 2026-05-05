@@ -1,0 +1,100 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LiteYouTube from "../../components/LiteYouTube.astro";
+import FinalCta from "../../components/FinalCta.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("projects");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const data = entry.data;
+const dateFmt = data.date.toLocaleDateString("de-CH", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.excerpt}
+  image={data.hero.src}
+>
+  <section class="page-head">
+    <div class="container">
+      <div class="crumbs">
+        <a href="/">EHB Filmworks</a>
+        <span class="sep">/</span>
+        <a href="/projekte">Projekte</a>
+        <span class="sep">/</span>
+        <span>{data.title}</span>
+      </div>
+      <h1>{data.title}</h1>
+      {data.tagline && <p class="lead">{data.tagline}</p>}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:960px;">
+      <div class="project-meta-bar">
+        <span class="cat">{data.categoryLabel}</span>
+        {data.client && (<><span class="dot"></span><span>{data.client}</span></>)}
+        {data.location && (<><span class="dot"></span><span>{data.location}</span></>)}
+        <span class="dot"></span>
+        <span>{dateFmt}</span>
+        <span class="dot"></span>
+        <span>{data.runtime}</span>
+      </div>
+
+      {
+        data.youtubeId ? (
+          <LiteYouTube id={data.youtubeId} title={data.title} />
+        ) : (
+          <div class="project-hero">
+            <Image
+              src={data.hero}
+              alt={data.heroAlt}
+              widths={[720, 1080, 1440]}
+              sizes="(min-width: 960px) 960px, 100vw"
+            />
+          </div>
+        )
+      }
+
+      <article class="legal-body">
+        <Content />
+
+        {
+          data.credits && data.credits.length > 0 && (
+            <>
+              <h2>Credits</h2>
+              <dl class="legal-dl">
+                {data.credits.map((c) => (
+                  <div>
+                    <dt>{c.role}</dt>
+                    <dd>{c.name}</dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          )
+        }
+      </article>
+    </div>
+  </section>
+
+  <FinalCta
+    eyebrow="Nächstes Projekt"
+    title="Wird das hier <em>Ihres?</em>"
+    body="Erzählen Sie uns von Ihrer Idee — wir antworten innerhalb von 24 Stunden."
+    primary={{ href: "/kontakt", label: "Briefing starten" }}
+  />
+</BaseLayout>

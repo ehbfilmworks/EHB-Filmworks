@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import logoWhite from "../assets/Logo_EHB_Filmworks_white.png";
+import { siteConfig } from "../data/site";
+---
+
+<footer class="site-footer">
+  <div class="container foot-top">
+    <div class="foot-top-grid">
+      <div class="foot-brand">
+        <Image src={logoWhite} alt="EHB Filmworks" width={180} height={56} />
+        <p>
+          Eine kleine Schweizer Videoproduktion mit Sitz in Solothurn.
+          Wir produzieren cinematische Image-Filme, FPV-Drohnenaufnahmen
+          und Reels für Marken mit Geschichte.
+        </p>
+        <a class="foot-cta" href="/kontakt">
+          Projekt anfragen <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div>
+        <h4 class="foot-h4">Studio</h4>
+        <ul class="foot-list">
+          <li><a href="/">Startseite</a></li>
+          <li><a href="/projekte">Projekte<span class="gloss">3</span></a></li>
+          <li><a href="/preise">Preise</a></li>
+          <li><a href="/kontakt">Kontakt</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="foot-h4">Leistungen</h4>
+        <ul class="foot-list">
+          <li><a href="/preise">Image-Filme</a></li>
+          <li><a href="/preise">Cinematic</a></li>
+          <li><a href="/preise">FPV-Drohnen</a></li>
+          <li><a href="/preise">Reels &amp; TikTok</a></li>
+          <li><a href="/preise">Live-Events</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="foot-h4">Kontakt</h4>
+        <div class="foot-contact-row">
+          <span class="lab">Email</span>
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+        </div>
+        <div class="foot-contact-row">
+          <span class="lab">Telefon</span>
+          <a href={siteConfig.phoneHref}>{siteConfig.phone}</a>
+        </div>
+        <div class="foot-socials">
+          <a href={siteConfig.socials.instagram} aria-label="Instagram" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+          </a>
+          <a href={siteConfig.socials.youtube} aria-label="YouTube" target="_blank" rel="noopener">
+            <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div class="foot-bottom-inner">
+      <span>© {siteConfig.copyrightYear} <a href="/">{siteConfig.entity}</a> · Solothurn, Schweiz</span>
+      <span class="foot-legal">
+        <a href="/impressum">Impressum</a>
+        <span class="sep">·</span>
+        <a href="/datenschutz">Datenschutz</a>
+        <span class="sep">·</span>
+        <a href="/agb">AGB</a>
+      </span>
+    </div>
+  </div>
+</footer>
