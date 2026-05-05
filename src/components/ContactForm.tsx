@@ -1,37 +1,20 @@
 import { useEffect, useState, type FormEvent } from "react";
 
 interface Props {
-  tallyFormId?: string;
+  formKey?: string;
 }
 
 const serviceList = [
   "Image-Film",
-  "Cinematic",
   "FPV-Drone",
-  "Reel",
-  "TikTok",
-  "Live-Event",
-  "Anderes",
-];
-const budgetList = [
-  "< CHF 2k",
-  "CHF 2–5k",
-  "CHF 5–10k",
-  "CHF 10–25k",
-  "CHF 25k +",
-];
-const timelineList = [
-  "So schnell wie möglich",
-  "In 1–3 Monaten",
-  "In 3–6 Monaten",
-  "Noch flexibel",
+  "Social-Media-Content",
+  "Cinematic-Video",
 ];
 
 type Toast = { kind: "ok" | "error"; message: string } | null;
 
-export default function ContactForm({ tallyFormId }: Props) {
+export default function ContactForm({ formKey }: Props) {
   const [services, setServices] = useState<string[]>(["Image-Film"]);
-  const [budget, setBudget] = useState<string>("CHF 5–10k");
   const [timeline, setTimeline] = useState<string>("In 1–3 Monaten");
   const [toast, setToast] = useState<Toast>(null);
   const [busy, setBusy] = useState(false);
@@ -61,18 +44,8 @@ export default function ContactForm({ tallyFormId }: Props) {
 
     const form = e.currentTarget;
     const fd = new FormData(form);
-    fd.append("services", services.join(", "));
-    fd.append("budget", budget);
-    fd.append("timeline", timeline);
 
-    if (!tallyFormId) {
-      // No Tally form configured yet — log to console as a dev-time fallback
-      // and surface the friendly success state. Studio: configure
-      // PUBLIC_TALLY_FORM_ID and redeploy to enable real submissions.
-      console.warn(
-        "PUBLIC_TALLY_FORM_ID is not set — submission was not delivered.",
-        Object.fromEntries(fd.entries())
-      );
+    if (!formKey) {
       setToast({
         kind: "error",
         message:
@@ -83,19 +56,29 @@ export default function ContactForm({ tallyFormId }: Props) {
     }
 
     try {
-      const res = await fetch(`https://tally.so/api/embed/${tallyFormId}`, {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: fd,
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: formKey,
+          subject: "Neue Anfrage — EHB Filmworks",
+          vorname: fd.get("vorname"),
+          nachname: fd.get("nachname"),
+          email: fd.get("email"),
+          telefon: fd.get("telefon"),
+          firma: fd.get("firma"),
+          services: services.join(", "),
+          message: fd.get("message"),
+        }),
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.message ?? `HTTP ${res.status}`);
       setToast({
         kind: "ok",
-        message:
-          "Nachricht gesendet — wir melden uns innerhalb von 24 Stunden.",
+        message: "Nachricht gesendet — wir melden uns innerhalb von 24 Stunden.",
       });
       form.reset();
       setServices(["Image-Film"]);
-      setBudget("CHF 5–10k");
       setTimeline("In 1–3 Monaten");
     } catch {
       setToast({
@@ -162,42 +145,6 @@ export default function ContactForm({ tallyFormId }: Props) {
                 onClick={() => toggleService(s)}
               >
                 {s}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="field">
-          <label>Ihr Budget</label>
-          <div className="chips" role="radiogroup" aria-label="Budget">
-            {budgetList.map((b) => (
-              <button
-                key={b}
-                type="button"
-                role="radio"
-                aria-checked={budget === b}
-                className={"chip" + (budget === b ? " is-on" : "")}
-                onClick={() => setBudget(b)}
-              >
-                {b}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="field">
-          <label>Wann soll's losgehen?</label>
-          <div className="chips" role="radiogroup" aria-label="Timeline">
-            {timelineList.map((t) => (
-              <button
-                key={t}
-                type="button"
-                role="radio"
-                aria-checked={timeline === t}
-                className={"chip" + (timeline === t ? " is-on" : "")}
-                onClick={() => setTimeline(t)}
-              >
-                {t}
               </button>
             ))}
           </div>

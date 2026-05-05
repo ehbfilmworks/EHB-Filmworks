@@ -2,8 +2,6 @@
 import { Image, getImage } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ShowreelMedia from "../components/ShowreelMedia.tsx";
-import ShowreelTrigger from "../components/ShowreelTrigger.tsx";
-import Marquee from "../components/Marquee.astro";
 import StatsRow from "../components/StatsRow.astro";
 import CapabilityGrid from "../components/CapabilityGrid.astro";
 import ProcessGrid from "../components/ProcessGrid.astro";
@@ -42,25 +40,10 @@ const heroPoster = await getImage({
         <a class="btn" href="/kontakt">
           Projekt anfragen <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </a>
-        <ShowreelTrigger client:idle videoSrc="/showreel.mp4" />
-      </div>
-    </div>
-    <div class="hero-bottom">
-      <div class="hero-bottom-inner">
-        <span>Scroll</span>
-        <div class="ticker">
-          <span>Image-Film</span>
-          <span>Cinematic</span>
-          <span>FPV Drone</span>
-          <span>Reels</span>
-          <span>Live Event</span>
-        </div>
-        <span>01 / 04</span>
       </div>
     </div>
   </section>
 
-  <Marquee />
   <StatsRow />
 
   <section class="section">
@@ -100,7 +83,7 @@ const heroPoster = await getImage({
           <p class="eyebrow">Kompetenzen</p>
           <h2 class="section-title">Was wir am besten können.</h2>
         </div>
-        <a href="/preise" class="btn btn-outline">
+        <a href="/angebot" class="btn btn-outline">
           Alle Leistungen <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </a>
       </div>
@@ -110,7 +93,7 @@ const heroPoster = await getImage({
 
   <section class="section section-dark">
     <div class="container">
-      <p class="eyebrow">Featured · vom 15.12.2024</p>
+      <p class="eyebrow">Featured</p>
       <h2 class="section-title" style="color:#fff;margin-bottom:56px;">Neuste Arbeit</h2>
       <div class="feat">
         <a class="feat-photo" href="/projekte/hotel-palace-gstaad" aria-label="Hotel Palace Gstaad — Projekt ansehen">
@@ -166,7 +149,7 @@ const heroPoster = await getImage({
   <FinalCta
     title="Lassen Sie uns Ihre Geschichte <em>erzählen.</em>"
     body="Schreiben Sie uns eine kurze Nachricht — wir melden uns innerhalb von 24 Stunden mit einem ersten Vorschlag."
-    secondary={{ href: "/preise", label: "Preise ansehen" }}
+    secondary={{ href: "/angebot", label: "Angebot ansehen" }}
   />
 </BaseLayout>
 

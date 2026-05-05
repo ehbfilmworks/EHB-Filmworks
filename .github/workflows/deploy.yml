@@ -33,7 +33,7 @@ jobs:
       - name: Build
         env:
           PUBLIC_CF_ANALYTICS_TOKEN: ${{ secrets.PUBLIC_CF_ANALYTICS_TOKEN }}
-          PUBLIC_TALLY_FORM_ID: ${{ secrets.PUBLIC_TALLY_FORM_ID }}
+          PUBLIC_WEB3FORMS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_KEY }}
         run: npm run build
 
       - name: Upload artifact
