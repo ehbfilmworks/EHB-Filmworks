@@ -1,0 +1,35 @@
+---
+interface Props {
+  posterSrc: string;
+  videoSrc: string;
+}
+const { posterSrc, videoSrc } = Astro.props;
+---
+
+<div class="hero-media">
+  <video
+    class="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster={posterSrc}
+    src={videoSrc}
+  ></video>
+  <img class="hero-still" src={posterSrc} alt="" aria-hidden="true" />
+</div>
+
+<style>
+  .hero-still { display: none; }
+
+  @media (max-width: 799px) {
+    .hero-video { display: none; }
+    .hero-still { display: block; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video { display: none; }
+    .hero-still { display: block; }
+  }
+</style>

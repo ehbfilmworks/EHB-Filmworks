@@ -1,7 +1,7 @@
 ---
 import { Image, getImage } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ShowreelMedia from "../components/ShowreelMedia.tsx";
+import ShowreelMedia from "../components/ShowreelMedia.astro";
 import StatsRow from "../components/StatsRow.astro";
 import CapabilityGrid from "../components/CapabilityGrid.astro";
 import ProcessGrid from "../components/ProcessGrid.astro";
@@ -24,7 +24,7 @@ const heroPoster = await getImage({
 >
   <section class="hero">
     <div class="hero-meta">REEL 2026 / SOLOTHURN — CH</div>
-    <ShowreelMedia client:idle posterSrc={heroPoster.src} videoSrc="/showreel.mp4" />
+    <ShowreelMedia posterSrc={heroPoster.src} videoSrc="/showreel.mp4" />
     <div class="hero-inner">
       <p class="hero-eyebrow">EHB Filmworks · est. 2024</p>
       <h1 class="hero-h1">
