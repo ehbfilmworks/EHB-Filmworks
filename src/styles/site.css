@@ -7,6 +7,11 @@ body { overflow-x: hidden; }
 
 img { max-width: 100%; display: block; }
 
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;

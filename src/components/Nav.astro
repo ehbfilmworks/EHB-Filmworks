@@ -18,7 +18,11 @@ const links = [
 const isActive = (href: string) => here === href || here.startsWith(href + "/");
 ---
 
-<nav class:list={["nav", homeNav && "is-dark"]} data-home={homeNav ? "true" : undefined}>
+<nav
+  class:list={["nav", homeNav && "is-dark"]}
+  data-home={homeNav ? "true" : undefined}
+  aria-label="Hauptnavigation"
+>
   <div class="nav-inner">
     <a class="nav-logo" href="/" aria-label="EHB Filmworks Startseite">
       <Image src={logo} alt="EHB Filmworks" width={140} height={48} loading="eager" />

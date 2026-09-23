@@ -110,13 +110,13 @@ export default function ContactForm({ formKey }: Props) {
             <label htmlFor="vorname">
               Vorname <span className="req">*</span>
             </label>
-            <input id="vorname" name="vorname" required placeholder="Max" />
+            <input id="vorname" name="vorname" required aria-required="true" placeholder="Max" />
           </div>
           <div className="field">
             <label htmlFor="nachname">
               Nachname <span className="req">*</span>
             </label>
-            <input id="nachname" name="nachname" required placeholder="Muster" />
+            <input id="nachname" name="nachname" required aria-required="true" placeholder="Muster" />
           </div>
         </div>
 
@@ -129,6 +129,7 @@ export default function ContactForm({ formKey }: Props) {
               id="email"
               name="email"
               required
+              aria-required="true"
               type="email"
               placeholder="max@firma.ch"
             />
@@ -203,6 +204,7 @@ export default function ContactForm({ formKey }: Props) {
             id="message"
             name="message"
             required
+            aria-required="true"
             placeholder="Worum geht's? Welche Geschichte wollen Sie erzählen, welches Publikum erreichen, welches Format? Je konkreter, desto besser unser erster Vorschlag."
           />
         </div>
@@ -226,8 +228,9 @@ export default function ContactForm({ formKey }: Props) {
       {toast && (
         <div
           className={"toast" + (toast.kind === "error" ? " is-error" : "")}
-          role="status"
-          aria-live="polite"
+          role={toast.kind === "error" ? "alert" : "status"}
+          aria-live={toast.kind === "error" ? "assertive" : "polite"}
+          aria-atomic="true"
         >
           <i
             className={
