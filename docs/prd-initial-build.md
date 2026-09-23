@@ -20,7 +20,7 @@ Build a static marketing site from the design bundle, deploy it to GitHub Pages 
 
 The visual language and copy come from the design bundle as authored, with targeted edits to bring the load-bearing claims (legal entity, address, prices, stats) in line with the studio's actual current state. Hero section uses muted-autoplay background video drawn from the studio's showreel, with a "Mit Ton ansehen" modal for visitors who want sound. Project detail pages embed the YouTube videos via a click-to-load placeholder so no third-party tracking fires until the visitor explicitly plays the video.
 
-Content for the project portfolio and the legal pages lives in the repo as markdown so the studio can add a new project by writing a markdown file and pushing a commit. Pricing, FAQ, and team data live as typed TS data files. The contact form posts to Tally (EU-hosted) and submissions land in the studio inbox by email.
+Content for the project portfolio and the legal pages lives in the repo as markdown so the studio can add a new project by writing a markdown file and pushing a commit. Pricing, FAQ, and team data live as typed TS data files. The contact form posts to Web3Forms and submissions land in the studio inbox by email.
 
 ## User Stories
 
@@ -120,14 +120,14 @@ Content for the project portfolio and the legal pages lives in the repo as markd
 - `<SEO>` component — single source of truth for `<title>`, meta description, canonical, OpenGraph, Twitter card, JSON-LD organisation schema. Used on every page.
 - `<ShowreelHero>` component — encapsulates the muted-autoplay-background video, the small-screen image fallback, the `prefers-reduced-motion` fallback, the modal-with-sound interaction, and the modal accessibility (Esc to close, focus trap, click-out-to-close).
 - `<LiteYouTube>` component — wraps the lite-youtube web component on project detail pages, handles the thumbnail, alt text, and consolidates the privacy posture.
-- `<ContactForm>` React island — chips state for services / budget / timeline, submission via fetch to Tally, success/error toast, basic client-side required-field handling.
+- `<ContactForm>` React island — chips state for services / budget / timeline, submission via fetch to Web3Forms, success/error toast, basic client-side required-field handling.
 - `<ProjectsGallery>` React island — receives the project list at build time (resolved from the content collection), holds the filter state and renders the grid.
 - `<Nav>` component — sticky positioning, scroll-aware dark/light state on the home route, active-route highlight on every route, mobile-collapsed link list.
 - Presentational components: `<Footer>`, `<PageHead>` layout, `<TeamStrip>`, `<ProcessGrid>`, `<FinalCta>`, `<MarqueeStrip>`, `<StatsRow>`, `<CapabilityGrid>`, `<FeaturedProject>`. These are stable visual shells driven by props.
 
 **Integrations**
 
-- Tally.so (EU-hosted) for the contact form. Submission posts to the form's Tally endpoint; submissions are forwarded to the studio inbox by email. Adds Tally to the Datenschutz Auftragsbearbeiter list.
+- Web3Forms for the contact form. Submission posts to the Web3Forms endpoint and is forwarded to the studio inbox by email. Adds Web3Forms to the Datenschutz Auftragsbearbeiter list.
 - Cloudflare Web Analytics in JS-beacon mode (no DNS migration required). Cookie-free, no IP storage.
 - YouTube embeds for project videos via the `lite-youtube` web component. Click-to-load: no Google traffic on page load, only on user click. Adds Google Ireland Ltd. to the Datenschutz Auftragsbearbeiter list with a "data only on click" disclosure.
 - Self-hosted MP4 (`/showreel.mp4`) for the hero background. The source 23 MB MP4 is re-encoded once with ffmpeg to H.264 1080p, target ~6 MB, with `-movflags +faststart` so playback can begin before the file fully downloads.
@@ -136,7 +136,7 @@ Content for the project portfolio and the legal pages lives in the repo as markd
 
 - Legal entity name: "EHB Filmworks GmbH" replaced with "EHB Filmworks" everywhere (Impressum, Datenschutz, AGB, Footer copyright, Nav alt text).
 - Impressum: Handelsregister, UID, MwSt rows removed; address removed; phone updated to the studio's actual number; email updated to the studio inbox.
-- Datenschutz: §1 verantwortliche Stelle re-written without GmbH and without address; §4 Cookies re-written to name Cloudflare Web Analytics (instead of Plausible) and to add the YouTube click-to-load disclosure; §8 Auftragsbearbeiter re-written to name GitHub (hosting), Cloudflare (analytics), Tally (form processing), and Google Ireland Ltd. for YouTube (with the click-only note); Infomaniak/Frame.io/Bexio entries removed.
+- Datenschutz: §1 verantwortliche Stelle re-written without GmbH and without address; §4 Cookies re-written to name Cloudflare Web Analytics (instead of Plausible) and to add the YouTube click-to-load disclosure; §8 Auftragsbearbeiter re-written to name GitHub (hosting), Cloudflare (analytics), Web3Forms (form processing), and Google Ireland Ltd. for YouTube (with the click-only note); Infomaniak/Frame.io/Bexio entries removed.
 - AGB: drop the "GmbH" suffix on EHB references; remove address.
 - Footer: drop the newsletter form input + button, replace with the brand paragraph and a CTA pointing at /kontakt; drop the address row in the contact column; update phone; "Projekte (12)" gloss → "Projekte (3)".
 - Landing page stats row: "42+ Produktionen / 8K Drohnen-Footage / 3—5 Tage Lieferzeit / 100% In-house Edit" replaced with "3 Projekte / 4K Cine / 2024 gegründet / 100% In-house Edit".
@@ -179,12 +179,12 @@ Content for the project portfolio and the legal pages lives in the repo as markd
 - A newsletter system. The footer subscribe form is being removed entirely.
 - A retainer pricing model. The Pro Projekt / Retainer toggle from the prototype is being removed; all pricing is project-based "Auf Anfrage".
 - An add-on price list. The prototype's eight-row addon table is being removed.
-- A real-time form provider (e.g. SMS-on-submit, Slack webhook). Tally email forwarding to the studio inbox is the only delivery mechanism in v1.
+- A real-time form provider (e.g. SMS-on-submit, Slack webhook). Web3Forms email forwarding to the studio inbox is the only delivery mechanism in v1.
 - View Transitions / SPA-mode navigation. Astro defaults to MPA navigation; this is fine for a brochure site and avoids the additional complexity for v1.
 - A PWA / installable manifest. Skipped until there's a clear use case.
 - Project detail-page galleries beyond the hero photo and the embedded video. A single hero image and a single embed is the v1 detail-page scope; additional stills or galleries are a follow-up once project content matures.
 - An AVV-grade legal review of the published Datenschutz / AGB. The text in v1 is informed by the prototype copy and edited to match the actual stack, but should be reviewed by a Swiss data-protection / commercial lawyer before being relied on in a dispute.
-- Server-side or build-time form processing. The contact form is fully client-side (POST to Tally).
+- Server-side or build-time form processing. The contact form is fully client-side (POST to Web3Forms).
 
 ## Further Notes
 

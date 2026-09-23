@@ -5,7 +5,7 @@ import ContactForm from "../components/ContactForm.tsx";
 import { team } from "../data/team";
 import { siteConfig } from "../data/site";
 
-const tallyFormId = import.meta.env.PUBLIC_WEB3FORMS_KEY;
+const web3FormsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
 ---
 
 <BaseLayout
@@ -31,7 +31,7 @@ const tallyFormId = import.meta.env.PUBLIC_WEB3FORMS_KEY;
   <section class="section">
     <div class="container">
       <div class="contact-grid">
-        <ContactForm client:idle formKey={tallyFormId} />
+        <ContactForm client:idle formKey={web3FormsKey} />
 
         <aside class="contact-side">
           <p class="eyebrow">Studio</p>

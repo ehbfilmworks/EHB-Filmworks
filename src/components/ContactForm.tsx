@@ -10,12 +10,20 @@ const serviceList = [
   "Social-Media-Content",
   "Cinematic-Video",
 ];
+const budgetOptions = ["< CHF 2k", "CHF 2–5k", "CHF 5–10k", "CHF 10–25k", "CHF 25k +"];
+const timelineOptions = [
+  "So schnell wie möglich",
+  "In 1–3 Monaten",
+  "In 3–6 Monaten",
+  "Noch flexibel",
+];
 
 type Toast = { kind: "ok" | "error"; message: string } | null;
 
 export default function ContactForm({ formKey }: Props) {
   const [services, setServices] = useState<string[]>(["Image-Film"]);
   const [timeline, setTimeline] = useState<string>("In 1–3 Monaten");
+  const [budget, setBudget] = useState<string>("");
   const [toast, setToast] = useState<Toast>(null);
   const [busy, setBusy] = useState(false);
 
@@ -68,6 +76,8 @@ export default function ContactForm({ formKey }: Props) {
           telefon: fd.get("telefon"),
           firma: fd.get("firma"),
           services: services.join(", "),
+          budget,
+          timeline,
           message: fd.get("message"),
         }),
       });
@@ -80,6 +90,7 @@ export default function ContactForm({ formKey }: Props) {
       form.reset();
       setServices(["Image-Film"]);
       setTimeline("In 1–3 Monaten");
+      setBudget("");
     } catch {
       setToast({
         kind: "error",
@@ -151,6 +162,40 @@ export default function ContactForm({ formKey }: Props) {
         </div>
 
         <div className="field">
+          <label>Ihr Budget</label>
+          <div className="chips" role="group" aria-label="Budget">
+            {budgetOptions.map((option) => (
+              <button
+                key={option}
+                type="button"
+                aria-pressed={budget === option}
+                className={"chip" + (budget === option ? " is-on" : "")}
+                onClick={() => setBudget(option)}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="field">
+          <label>Wann soll's losgehen?</label>
+          <div className="chips" role="group" aria-label="Zeitrahmen">
+            {timelineOptions.map((option) => (
+              <button
+                key={option}
+                type="button"
+                aria-pressed={timeline === option}
+                className={"chip" + (timeline === option ? " is-on" : "")}
+                onClick={() => setTimeline(option)}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="field">
           <label htmlFor="message">
             Erzählen Sie uns von Ihrem Projekt <span className="req">*</span>
           </label>
@@ -173,7 +218,7 @@ export default function ContactForm({ formKey }: Props) {
               style={{ color: "var(--accent)", marginRight: 6 }}
               aria-hidden="true"
             ></i>
-            Wir antworten innerhalb von 24 Stunden. Keine Newsletter, keine Drittparteien.
+            Wir antworten innerhalb von 24 Stunden. Keine Newsletter. Ihre Angaben werden zur Bearbeitung über Web3Forms übermittelt.
           </small>
         </div>
       </form>

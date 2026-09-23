@@ -45,6 +45,7 @@ export default function ProjectsGallery({ projects }: Props) {
           <button
             key={k}
             type="button"
+            aria-pressed={filter === k}
             className={filter === k ? "is-on" : ""}
             onClick={() => setFilter(k)}
           >
