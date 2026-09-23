@@ -1,4 +1,4 @@
-# Contact page — Tally form + team strip side panel
+# Contact page — Web3Forms + team strip side panel
 
 Labels (when published): `needs-triage`, `hitl`
 
@@ -8,13 +8,13 @@ Labels (when published): `needs-triage`, `hitl`
 
 ## What to build
 
-Build `src/data/team.ts` with the three founders (Lorin Büchel, Sebastian Ebner, Silas Hanyecz with their roles and portrait references). Build the Kontakt page with the chips-driven form as a React island that submits to a Tally form via `fetch`, shows the success toast, and resets. Restructure the side panel: drop Standort, Öffnungszeiten, and Map blocks; keep Email, Phone, Folgen Sie uns; add a 3-up team strip with circular portraits + name + role beneath the Folgen Sie uns block. Update Datenschutz §8 to add Tally as Auftragsbearbeiter.
+Build `src/data/team.ts` with the three founders (Lorin Büchel, Sebastian Ebner, Silas Hanyecz with their roles and portrait references). Build the Kontakt page with the chips-driven form as a React island that submits to Web3Forms via `fetch`, shows the success toast, and resets. Restructure the side panel: drop Standort, Öffnungszeiten, and Map blocks; keep Email, Phone, Folgen Sie uns; add a 3-up team strip with circular portraits + name + role beneath the Folgen Sie uns block. Update Datenschutz §8 to add Web3Forms as the form processor.
 
-This slice is HITL: the studio needs to create a Tally form configured to email submissions to `ehbfilmworks@gmail.com` and provide the form ID before this slice can complete.
+The studio must provide a `PUBLIC_WEB3FORMS_KEY` secret configured for the Web3Forms endpoint before production submissions can complete.
 
 ## Acceptance criteria
 
-- [ ] Studio has created a Tally form configured to email submissions to `ehbfilmworks@gmail.com` and provided the form ID
+- [ ] Studio has configured Web3Forms to deliver submissions to `ehbfilmworks@gmail.com` and provided the access key
 - [ ] `src/data/team.ts` exports an array of three founders, each with:
   - [ ] `name: string`
   - [ ] `role: string` (Geschäftsführer / Technische Leitung / Kreative Leitung)
@@ -29,7 +29,7 @@ This slice is HITL: the studio needs to create a Tally form configured to email 
   - [ ] "Wann soll's losgehen?" — single-select chips (So schnell wie möglich / In 1–3 Monaten / In 3–6 Monaten / Noch flexibel)
   - [ ] "Erzählen Sie uns von Ihrem Projekt*" — textarea
 - [ ] Required fields validated client-side via the `required` HTML attribute
-- [ ] Submitting POSTs JSON (or form-encoded — whichever Tally requires) to the configured Tally endpoint via `fetch`
+- [ ] Submitting POSTs JSON to the configured Web3Forms endpoint via `fetch`
 - [ ] On 2xx response: success toast appears ("Nachricht gesendet — wir melden uns innerhalb von 24 Stunden."), form fields reset
 - [ ] On error response or network failure: error toast appears with email fallback ("Etwas ist schiefgelaufen — schreiben Sie uns direkt an ehbfilmworks@gmail.com")
 - [ ] Toast auto-dismisses after ~3.2 seconds and is keyboard-dismissable
@@ -46,8 +46,8 @@ This slice is HITL: the studio needs to create a Tally form configured to email 
   - [ ] Three circular portraits (responsive `<Image>`, ~64px diameter)
   - [ ] Each portrait has the founder's name beneath it and role beneath the name
   - [ ] Visual treatment fits the dark side-panel aesthetic
-- [ ] Datenschutz §8 updated to add Tally entry, e.g.: "Tally Solutions BV, Amsterdam — Verarbeitung von Kontaktformular-Einsendungen. Daten werden in der EU verarbeitet."
-- [ ] Tally form ID stored as an environment variable (`TALLY_FORM_ID`) and read in the build, so swapping the form later is a config edit
+- [ ] Datenschutz §8 updated to add Web3Forms as the contact-form processor
+- [ ] Web3Forms access key stored as `PUBLIC_WEB3FORMS_KEY` and read in the build
 - [ ] `<SEO>` populated with the Kontakt title and description
 
 ## Blocked by

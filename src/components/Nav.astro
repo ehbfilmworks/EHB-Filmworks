@@ -23,7 +23,18 @@ const isActive = (href: string) => here === href || here.startsWith(href + "/");
     <a class="nav-logo" href="/" aria-label="EHB Filmworks Startseite">
       <Image src={logo} alt="EHB Filmworks" width={140} height={48} loading="eager" />
     </a>
-    <div class="nav-links">
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-controls="primary-navigation"
+      aria-expanded="false"
+      aria-label="Menü öffnen"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+    <div class="nav-links" id="primary-navigation">
       {
         links.map((link) => (
           <a href={link.href} class:list={[isActive(link.href) && "is-active"]}>
@@ -38,6 +49,22 @@ const isActive = (href: string) => here === href || here.startsWith(href + "/");
 
 <script>
   const nav = document.querySelector(".nav");
+  const toggle = nav?.querySelector<HTMLButtonElement>(".nav-toggle");
+  const links = nav?.querySelector(".nav-links");
+  const setMenuOpen = (open: boolean) => {
+    if (!nav || !toggle) return;
+    nav.classList.toggle("is-menu-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Menü schliessen" : "Menü öffnen");
+  };
+  setMenuOpen(false);
+  toggle?.addEventListener("click", () => {
+    setMenuOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+  links?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenuOpen(false)));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setMenuOpen(false);
+  });
   if (nav && nav.getAttribute("data-home") === "true") {
     const onScroll = () => {
       if (window.scrollY > 80) nav.classList.remove("is-dark");
